@@ -21,21 +21,20 @@ import java.util.Map.Entry;
 
 
 preferences {
-        input("ip", "string", title:"IP Address", description: "192.168.0.55", defaultValue: "192.168.0.55" ,required: true, displayDuringSetup: true)
+        input("ip", "string", title:"IP Address", description: "192.168.0.28", defaultValue: "192.168.0.28" ,required: true, displayDuringSetup: true)
         input("port", "string", title:"Port", description: "3003", defaultValue: "3003" , required: true, displayDuringSetup: true)
-        input("socketId", "string", title:"Socket Id", description: "Socket Id", defaultValue: "1", required:true, displayDuringSetup: true)
 }
 
 metadata {
-	definition (name: "Socket-Control Swith", namespace: "shaneweaver", author: "Shane Weaver") {
+	definition (name: "Socket-Control Switch", namespace: "shaneweaver", author: "Shane Weaver") {
         capability "Switch"        
 	}
 
 	tiles(scale: 2) {
         
         standardTile("switch", "device.switch", width: 4, height: 4) {
-			state "on", label:"Front 1", action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#00a0dc"
-			state "off", label:"Front 1", action: "switch.on", icon: "st.switches.switch.off", backgroundColor: "#ffffff"
+			state "on", label:'${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#00a0dc"
+			state "off", label:'${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: "#ffffff"
 		}
 
         main "switch"
@@ -101,7 +100,7 @@ private postAction(action){
     method: "POST",
     // path: uri,
     headers: getHeader(),
-    body: ["socket": doorId,"action": action]
+    body: ["action": action]
   )//,delayAction(1000), refresh()]
   log.debug("Executing hubAction on " + getHostAddress())
   //log.debug hubAction
